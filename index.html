@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Student Skills DBMS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+  <section id="login">
+    <div class="box">
+      <h1>Student & Skill Management System</h1>
+      <p>Sign in to manage students and their skills.</p>
+      <label for="u">Username</label><input id="u" value="admin" autocomplete="username">
+      <label for="p">Password</label><input id="p" type="password" value="1234" autocomplete="current-password">
+      <button class="btn full" onclick="login()">Sign in</button>
+      <div class="err" id="err" role="alert"></div>
+    </div>
+  </section>
+
+  <div id="app">
+    <aside>
+      <h2>Student Skills</h2>
+      <button class="nav on" id="n-dash" onclick="show('dash')">Dashboard</button>
+      <button class="nav" id="n-q" onclick="show('query')">Query console</button>
+      <div class="sep"></div>
+      <div class="navs" id="navs"></div>
+    </aside>
+    <main>
+      <div class="top">
+        <h1 id="title">Dashboard</h1><button class="ghost" onclick="logout()">Sign out</button>
+      </div>
+      <div id="v-dash">
+        <div class="stats" id="stats"></div>
+        <div class="panel">
+          <h3>Your 11 tables</h3>
+          <div class="tiles" id="tiles"></div>
+        </div>
+      </div>
+      <div id="v-table" style="display:none">
+        <div class="panel">
+          <div id="tinfo" class="meta" style="margin:0 0 6px"></div>
+          <div class="wrap" id="tgrid"></div>
+        </div>
+      </div>
+      <div id="v-query" style="display:none">
+        <div class="panel">
+          <h3>Write a query</h3>
+          <textarea id="q" spellcheck="false"></textarea>
+          <div class="chips" id="chips"></div>
+          <button class="btn" onclick="run()">Run query</button>
+          <div class="meta" id="qmeta"></div>
+          <div class="wrap" id="qgrid"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="JS/script.js"></script>
+</body>
+
+</html>
