@@ -254,3 +254,14 @@ async function run() {
 $('p').addEventListener('keydown', e => {
   if (e.key === 'Enter') login();
 });
+
+async function logout() {
+  try {
+    await api('api/logout.php', { method: 'POST', body: '{}' });
+  } finally {
+    $('app').style.display = 'none';
+    $('login').style.display = 'grid';
+    $('err').textContent = '';
+  }
+}
+
