@@ -3,9 +3,9 @@
 header('Content-Type: application/json; charset=utf-8');
 
 $host = 'localhost';
-$dbname = 'student_skills_db';
+$dbname = 'Student_Skill_Internship_Management_System';
 $username = 'root';
-$password = ''; // Default XAMPP MySQL password
+$password = 'deshan'; 
 
 try {
     $pdo = new PDO(

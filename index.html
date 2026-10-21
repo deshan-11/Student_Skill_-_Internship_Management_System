@@ -12,17 +12,19 @@
 
 <body>
 
+  <!-- LOGIN -->
   <section id="login">
     <div class="box">
-      <h1>Student & Skill Management System</h1>
-      <p>Sign in to manage students and their skills.</p>
-      <label for="u">Username</label><input id="u" value="admin" autocomplete="username">
-      <label for="p">Password</label><input id="p" type="password" value="1234" autocomplete="current-password">
+      <h1>Student &amp; Skill Management System</h1>
+      <p>Sign in with your registered email.</p>
+      <label for="u">Email</label>
+      <input id="u" type="email" placeholder="you@example.com" autocomplete="email">
       <button class="btn full" onclick="login()">Sign in</button>
       <div class="err" id="err" role="alert"></div>
     </div>
   </section>
 
+  <!-- APP -->
   <div id="app">
     <aside>
       <h2>Student Skills</h2>
@@ -31,10 +33,17 @@
       <div class="sep"></div>
       <div class="navs" id="navs"></div>
     </aside>
+
     <main>
       <div class="top">
-        <h1 id="title">Dashboard</h1><button class="ghost" onclick="logout()">Sign out</button>
+        <h1 id="title">Dashboard</h1>
+        <div class="user-bar">
+          <span id="who" class="meta"></span>
+          <button class="ghost" onclick="logout()">Sign out</button>
+        </div>
       </div>
+
+      <!-- Dashboard -->
       <div id="v-dash">
         <div class="stats" id="stats"></div>
         <div class="panel">
@@ -42,12 +51,16 @@
           <div class="tiles" id="tiles"></div>
         </div>
       </div>
+
+      <!-- Table view -->
       <div id="v-table" style="display:none">
         <div class="panel">
-          <div id="tinfo" class="meta" style="margin:0 0 6px"></div>
+          <div id="tinfo" class="meta tinfo"></div>
           <div class="wrap" id="tgrid"></div>
         </div>
       </div>
+
+      <!-- Query console (instructors only) -->
       <div id="v-query" style="display:none">
         <div class="panel">
           <h3>Write a query</h3>

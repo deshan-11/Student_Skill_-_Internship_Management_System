@@ -1,42 +1,24 @@
-
 <?php
 require 'db.php';
+require 'auth.php';
+require_login();
 
 $allowedTables = [
-    'student',
-    'department',
-    'course',
-    'enrollment',
-    'skill',
-    'skill_category',
-    'student_skill',
-    'skill_level',
-    'certificate',
-    'instructor',
-    'training_program'
+    'Student', 'Department', 'Course', 'Enrollment', 'Skill', 'Skill_Category',
+    'Student_Skill', 'Skill_Level', 'Certificate', 'Instructor', 'Training_Program'
 ];
 
 try {
     $result = [];
-
     foreach ($allowedTables as $table) {
-        $stmt = $pdo->query("SELECT * FROM `$table`");
-        $rows = $stmt->fetchAll();
-
-        $result[$table] = [
+        $rows = $pdo->query("SELECT * FROM `$table`")->fetchAll();
+        $result[strtolower($table)] = [
             'columns' => array_keys($rows[0] ?? []),
-            'rows' => $rows
+            'rows'    => $rows
         ];
     }
-
-    echo json_encode([
-        'success' => true,
-        'tables' => $result
-    ]);
+    echo json_encode(['success' => true, 'tables' => $result]);
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode([
-        'success' => false,
-        'message' => 'Unable to load database tables.'
-    ]);
+    echo json_encode(['success' => false, 'message' => 'Unable to load database tables.']);
 }
