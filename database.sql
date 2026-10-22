@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS Student_Skill_Internship_Management_System;
-
 USE Student_Skill_Internship_Management_System;
+
 
 --Department Table
 CREATE TABLE IF NOT EXISTS Department (
@@ -416,3 +416,175 @@ INSERT INTO Certificate (Certificate_ID, Certificate_Name, Issued_Date, Issued_O
 
 
 
+---------------------------------------SQL QUERY AND RESULTS---------------------------------------------
+
+//DISPLAY ALL STUDENTS
+SELECT * FROM Student;
+
+//DISPLAY ALL SKILLS
+SELECT * FROM Skill;
+
+//DISPLAY ALL CERTIFICATES
+SELECT * FROM Certificate;
+mysql> SELECT * FROM Certificate;
++----------------+---------------------------------------+-------------+---------------------+------------+------------+
+| Certificate_ID | Certificate_Name                      | Issued_Date | Issued_Organization | Student_ID | Program_ID |
++----------------+---------------------------------------+-------------+---------------------+------------+------------+
+| CET001         | Python Programming Certificate        | 2025-02-01  | ABC Institute       | S001       | TP001      |
+| CET002         | Java Programming Certificate          | 2025-02-05  | XYZ Academy         | S002       | TP002      |
+| CET003         | C Programming Certificate             | 2025-02-10  | LMN Institute       | S003       | TP003      |
+| CET004         | C++ Development Certificate           | 2025-02-15  | PQR Academy         | S004       | TP004      |
+| CET005         | JavaScript Development Certificate    | 2025-02-20  | DEF Institute       | S005       | TP005      |
+| CET006         | HTML Fundamentals Certificate         | 2025-02-28  | GHI Academy         | S006       | TP006      |
+| CET007         | CSS Web Design Certificate            | 2025-03-05  | JKL Institute       | S007       | TP007      |
+| CET008         | React Development Certificate         | 2025-03-10  | MNO Academy         | S008       | TP008      |
+| CET009         | Node.js Development Certificate       | 2025-03-15  | STU Institute       | S009       | TP009      |
+| CET010         | PHP Web Development Certificate       | 2025-03-20  | VWX Academy         | S010       | TP010      |
+| CET011         | MySQL Database Management Certificate | 2025-04-01  | YZA Institute       | S011       | TP011      |
+| CET012         | PostgreSQL Administration Certificate | 2025-04-05  | BCD Academy         | S012       | TP012      |
+| CET013         | Advanced SQL Queries Certificate      | 2025-04-10  | EFG Institute       | S013       | TP013      |
+| CET014         | Database Design Certificate           | 2025-04-15  | HIJ Academy         | S014       | TP014      |
+| CET015         | Data Modeling Certificate             | 2025-04-20  | KLM Institute       | S015       | TP015      |
+| CET016         | Network Configuration Certificate     | 2025-05-01  | NOP Academy         | S016       | TP016      |
+| CET017         | TCP/IP Networking Certificate         | 2025-05-05  | QRS Institute       | S017       | TP017      |
+| CET018         | Network Security Certificate          | 2025-05-10  | TUV Academy         | S018       | TP018      |
+| CET019         | Ethical Hacking Certificate           | 2025-05-15  | WXY Institute       | S019       | TP019      |
+| CET020         | Security Risk Assessment Certificate  | 2025-05-20  | ZAB Academy         | S020       | TP020      |
++----------------+---------------------------------------+-------------+---------------------+------------+------------+
+20 rows in set (0.01 sec)
+//SELECT SPECIFIC COLUMNS
+SELECT CONCAT(First_Name, ' ', Last_Name) AS Full_Name, Student_ID FROM Student;
+
+mysql> SELECT CONCAT(First_Name, ' ', Last_Name) AS Full_Name, Student_ID FROM Student;
++---------------------+------------+
+| Full_Name           | Student_ID |
++---------------------+------------+
+| Amal Perera         | S001       |
+| Nimal Silva         | S002       |
+| Kamal Fernando      | S003       |
+| Tharushi Jayasinghe | S004       |
+| Kasun Bandara       | S005       |
+| Nethmi Wijesinghe   | S006       |
+| Dinuka Herath       | S007       |
+| Sachini Perera      | S008       |
+| Isuru Silva         | S009       |
+| Pavithra Fernando   | S010       |
+| Malith Jayasinghe   | S011       |
+| Sanduni Bandara     | S012       |
+| Dilan Herath        | S013       |
+| Chamodi Silva       | S014       |
+| Ravindu Perera      | S015       |
+| Ishara Fernando     | S016       |
+| Gayan Wijesinghe    | S017       |
+| Lakshan Bandara     | S018       |
+| Anuki Herath        | S019       |
+| Mihiri Silva        | S020       |
++---------------------+------------+
+20 rows in set (0.01 sec)
+
+//SKILLS IN PROGRAMMING CATEGORY
+SELECT Skill_Name, Skill_ID FROM Skill WHERE Category_ID = 'SC001';
+
+mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Category_ID = 'SC001';
++--------------------+----------+
+| Skill_Name         | Skill_ID |
++--------------------+----------+
+| Python Programming | SK001    |
+| Java Programming   | SK002    |
+| C++ Programming    | SK003    |
++--------------------+----------+
+3 rows in set (0.00 sec)
+
+
+//FIND PROGRAMMES WITH COST GREATER THAN 45000
+SELECT Program_Name, Cost FROM Training_Program WHERE Cost > 45000;
+
+mysql> SELECT Program_Name, Cost FROM Training_Program WHERE Cost > 45000;
++---------------------------+----------+
+| Program_Name              | Cost     |
++---------------------------+----------+
+| Java Programming          | 46000.00 |
+| React Development         | 50000.00 |
+| Node.js Development       | 48000.00 |
+| PostgreSQL Administration | 47000.00 |
+| Database Design           | 46000.00 |
+| Network Configuration     | 48000.00 |
+| Network Security          | 52000.00 |
+| Ethical Hacking           | 55000.00 |
+| Security Risk Assessment  | 50000.00 |
++---------------------------+----------+
+9 rows in set (0.00 sec)
+
+//FIND PROGRAMMES WITH COST LESS THAN 40000
+SELECT Program_Name, Cost FROM Training_Program WHERE Cost < 40000;
+
+mysql> SELECT Program_Name, Cost FROM Training_Program WHERE Cost < 40000;
++-------------------+----------+
+| Program_Name      | Cost     |
++-------------------+----------+
+| HTML Fundamentals | 35000.00 |
+| CSS Web Design    | 36000.00 |
++-------------------+----------+
+2 rows in set (0.00 sec)
+
+//FIND PROGRAMMES WITH COST GREATER THAN OR EQUAL TO 50000
+SELECT Program_Name, Cost FROM Training_Program WHERE Cost >= 50000;
+
+
+mysql> SELECT Program_Name, Cost FROM Training_Program WHERE Cost >= 50000;
++--------------------------+----------+
+| Program_Name             | Cost     |
++--------------------------+----------+
+| React Development        | 50000.00 |
+| Network Security         | 52000.00 |
+| Ethical Hacking          | 55000.00 |
+| Security Risk Assessment | 50000.00 |
++--------------------------+----------+
+4 rows in set (0.00 sec)
+
+//FIND SPECIFIC STUDENT SKILLS
+SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name IN ('Python Programming', 'Java Programming', 'C++ Programming');
+mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name IN ('Python Programming', 'Java Programming', 'C++ Programming');
++--------------------+----------+
+| Skill_Name         | Skill_ID |
++--------------------+----------+
+| Python Programming | SK001    |
+| Java Programming   | SK002    |
+| C++ Programming    | SK003    |
++--------------------+----------+
+3 rows in set (0.00 sec)
+
+
+SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name = 'Mobile App Development';
+
+mysql>
+mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name = 'Mobile App Development';
+Empty set (0.00 sec)
+
+
+//EXCLUDE PROGRAMMES WITH COST EQUAL TO 45000
+SELECT Program_Name, Cost FROM Training_Program WHERE Cost != 45000;
+mysql> SELECT Program_Name, Cost FROM Training_Program WHERE Cost != 45000;
++---------------------------+----------+
+| Program_Name              | Cost     |
++---------------------------+----------+
+| Java Programming          | 46000.00 |
+| C Programming             | 40000.00 |
+| C++ Development           | 42000.00 |
+| JavaScript Development    | 44000.00 |
+| HTML Fundamentals         | 35000.00 |
+| CSS Web Design            | 36000.00 |
+| React Development         | 50000.00 |
+| Node.js Development       | 48000.00 |
+| PHP Web Development       | 42000.00 |
+| PostgreSQL Administration | 47000.00 |
+| Advanced SQL Queries      | 43000.00 |
+| Database Design           | 46000.00 |
+| Data Modeling             | 44000.00 |
+| Network Configuration     | 48000.00 |
+| TCP/IP Networking         | 42000.00 |
+| Network Security          | 52000.00 |
+| Ethical Hacking           | 55000.00 |
+| Security Risk Assessment  | 50000.00 |
++---------------------------+----------+
+18 rows in set (0.00 sec)
