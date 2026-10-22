@@ -495,7 +495,7 @@ mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Category_ID = 'SC001';
 +--------------------+----------+
 3 rows in set (0.00 sec)
 
-
+-----------------------------OPERATOR---------------------------------------------------------------
 //FIND PROGRAMMES WITH COST GREATER THAN 45000
 SELECT Program_Name, Cost FROM Training_Program WHERE Cost > 45000;
 
@@ -689,6 +689,8 @@ mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Category_ID IS NOT NULL;
 | Graphic Design with Adobe Photoshop | SK020    |
 +-------------------------------------+----------+
 20 rows in set (0.04 sec)
+
+------------------------AND , OR -----------------------------------------------------------
 
 //COST GREATER THAN 45000 AND LESS THAN 50000
 SELECT Program_Name, Cost , Program_ID FROM Training_Program WHERE Cost > 45000 AND Cost < 50000;
