@@ -695,17 +695,322 @@ mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Category_ID IS NOT NULL;
 //COST GREATER THAN 45000 AND LESS THAN 50000
 SELECT Program_Name, Cost , Program_ID FROM Training_Program WHERE Cost > 45000 AND Cost < 50000;
 
+mysql> SELECT Program_Name, Cost , Program_ID FROM Training_Program WHERE Cost > 45000 AND Cost < 50000;
++---------------------------+----------+------------+
+| Program_Name              | Cost     | Program_ID |
++---------------------------+----------+------------+
+| Java Programming          | 46000.00 | TP002      |
+| Node.js Development       | 48000.00 | TP009      |
+| PostgreSQL Administration | 47000.00 | TP012      |
+| Database Design           | 46000.00 | TP014      |
+| Network Configuration     | 48000.00 | TP016      |
++---------------------------+----------+------------+
+5 rows in set (0.00 sec)
+
 //FIND PYTHAON PROGRAMMING SKILL OR JAVA PROGRAMMING SKILL
 SELECT Skill_Name, Skill_ID 
 FROM Skill 
 WHERE Skill_Name = 'Python Programming' OR Skill_Name = 'Java Programming';
+
+mysql> SELECT Skill_Name, Skill_ID
+    -> FROM Skill
+    -> WHERE Skill_Name = 'Python Programming' OR Skill_Name = 'Java Programming';
++--------------------+----------+
+| Skill_Name         | Skill_ID |
++--------------------+----------+
+| Python Programming | SK001    |
+| Java Programming   | SK002    |
++--------------------+----------+
+2 rows in set (0.00 sec)
 
 //COMBINED THE AND , OR OPERATORS WITH PARENTHESES
 SELECT Skill_Name, Skill_ID 
 FROM Skill  
 WHERE (Skill_Name = 'Python Programming' OR Skill_Name = 'Java Programming') AND Category_ID = 'SC001'; 
 
+mysql> SELECT Skill_Name, Skill_ID
+    -> FROM Skill
+    -> WHERE (Skill_Name = 'Python Programming' OR Skill_Name = 'Java Programming') AND Category_ID = 'SC001';
++--------------------+----------+
+| Skill_Name         | Skill_ID |
++--------------------+----------+
+| Python Programming | SK001    |
+| Java Programming   | SK002    |
++--------------------+----------+
+2 rows in set (0.00 sec)
+
 //FIND THA NOT  COMPLETED ENROLLMENTS
 SELECT Enrollment_ID, Status, Student_ID, Course_ID
 FROM Enrollment WHERE Status != 'Completed';
+
+mysql> SELECT Enrollment_ID, Status, Student_ID, Course_ID
+    -> FROM Enrollment WHERE Status != 'Completed';
++---------------+----------+------------+-----------+
+| Enrollment_ID | Status   | Student_ID | Course_ID |
++---------------+----------+------------+-----------+
+| E001          | Enrolled | S001       | C001      |
+| E003          | Dropped  | S003       | C003      |
+| E004          | Pending  | S004       | C004      |
+| E006          | Dropped  | S006       | C006      |
+| E007          | Enrolled | S007       | C007      |
+| E009          | Pending  | S009       | C009      |
+| E010          | Pending  | S010       | C010      |
+| E012          | Dropped  | S012       | C012      |
+| E013          | Enrolled | S013       | C013      |
+| E015          | Dropped  | S015       | C015      |
+| E016          | Pending  | S016       | C016      |
+| E017          | Enrolled | S017       | C017      |
+| E019          | Dropped  | S019       | C019      |
+| E020          | Pending  | S020       | C020      |
++---------------+----------+------------+-----------+
+14 rows in set (0.00 sec)
+
+---------------------------JOIN QUERY-----------------------------------------------------
+//DISPLAY STUDENT SKILLS WITH LEVEL NAMES
+SELECT ss.Student_Skill_ID, s.First_Name, s.Last_Name, sk.Skill_Name, sl.Level_Name
+FROM Student_Skill ss
+JOIN Student s ON ss.Student_ID = s.Student_ID
+JOIN Skill sk ON ss.Skill_ID = sk.Skill_ID
+JOIN Skill_Level sl ON ss.Level_ID = sl.Level_ID;
+
+mysql> SELECT ss.Student_Skill_ID, s.First_Name, s.Last_Name, sk.Skill_Name, sl.Level_Name
+    -> FROM Student_Skill ss
+    -> JOIN Student s ON ss.Student_ID = s.Student_ID
+    -> JOIN Skill sk ON ss.Skill_ID = sk.Skill_ID
+    -> JOIN Skill_Level sl ON ss.Level_ID = sl.Level_ID;
++------------------+------------+------------+----------------------------------+--------------+
+| Student_Skill_ID | First_Name | Last_Name  | Skill_Name                       | Level_Name   |
++------------------+------------+------------+----------------------------------+--------------+
+| SS001            | Amal       | Perera     | Python Programming               | Intermediate |
+| SS002            | Nimal      | Silva      | Java Programming                 | Advanced     |
+| SS003            | Kamal      | Fernando   | C++ Programming                  | Beginner     |
+| SS004            | Tharushi   | Jayasinghe | HTML & CSS                       | Expert       |
+| SS005            | Kasun      | Bandara    | Machine Learning Algorithms      | Intermediate |
+| SS006            | Nethmi     | Wijesinghe | SQL Database Management          | Advanced     |
+| SS007            | Dinuka     | Herath     | UX Research Methods              | Beginner     |
+| SS008            | Sachini    | Perera     | Cybersecurity Fundamentals       | Expert       |
+| SS009            | Isuru      | Silva      | Software Development Lifecycle   | Intermediate |
+| SS010            | Pavithra   | Fernando   | Mobile App Development (Android) | Advanced     |
+| SS011            | Malith     | Jayasinghe | Mobile App Development (iOS)     | Beginner     |
+| SS012            | Sanduni    | Bandara    | AWS Cloud Services               | Expert       |
+| SS013            | Dilan      | Herath     | Azure Cloud Services             | Intermediate |
+| SS014            | Chamodi    | Silva      | Data Analysis with Python        | Advanced     |
+| SS015            | Ravindu    | Perera     | Azure Cloud Services             | Beginner     |
+| SS016            | Ishara     | Fernando   | Deep Learning Techniques         | Expert       |
+| SS017            | Gayan      | Wijesinghe | Data Visualization with Tableau  | Intermediate |
+| SS018            | Lakshan    | Bandara    | UI Design Principles             | Advanced     |
+| SS019            | Anuki      | Herath     | UX Research Methods              | Beginner     |
+| SS020            | Mihiri     | Silva      | Mobile App Development (Android) | Expert       |
++------------------+------------+------------+----------------------------------+--------------+
+20 rows in set (0.04 sec)
+
+//DISPLAY STUDENT CERTIFICATES WITH PROGRAM NAMES LEFT JOIN
+SELECT c.Certificate_ID, s.First_Name, s.Last_Name, c.Certificate_Name, tp.Program_Name
+FROM Certificate c
+LEFT JOIN Student s ON c.Student_ID = s.Student_ID
+LEFT JOIN Training_Program tp ON c.Program_ID = tp.Program_ID;
+
+mysql> SELECT c.Certificate_ID, s.First_Name, s.Last_Name, c.Certificate_Name, tp.Program_Name
+    -> FROM Certificate c
+    -> LEFT JOIN Student s ON c.Student_ID = s.Student_ID
+    -> LEFT JOIN Training_Program tp ON c.Program_ID = tp.Program_ID;
++----------------+------------+------------+---------------------------------------+---------------------------+
+| Certificate_ID | First_Name | Last_Name  | Certificate_Name                      | Program_Name              |
++----------------+------------+------------+---------------------------------------+---------------------------+
+| CET001         | Amal       | Perera     | Python Programming Certificate        | Python Programming        |
+| CET002         | Nimal      | Silva      | Java Programming Certificate          | Java Programming          |
+| CET003         | Kamal      | Fernando   | C Programming Certificate             | C Programming             |
+| CET004         | Tharushi   | Jayasinghe | C++ Development Certificate           | C++ Development           |
+| CET005         | Kasun      | Bandara    | JavaScript Development Certificate    | JavaScript Development    |
+| CET006         | Nethmi     | Wijesinghe | HTML Fundamentals Certificate         | HTML Fundamentals         |
+| CET007         | Dinuka     | Herath     | CSS Web Design Certificate            | CSS Web Design            |
+| CET008         | Sachini    | Perera     | React Development Certificate         | React Development         |
+| CET009         | Isuru      | Silva      | Node.js Development Certificate       | Node.js Development       |
+| CET010         | Pavithra   | Fernando   | PHP Web Development Certificate       | PHP Web Development       |
+| CET011         | Malith     | Jayasinghe | MySQL Database Management Certificate | MySQL Database Management |
+| CET012         | Sanduni    | Bandara    | PostgreSQL Administration Certificate | PostgreSQL Administration |
+| CET013         | Dilan      | Herath     | Advanced SQL Queries Certificate      | Advanced SQL Queries      |
+| CET014         | Chamodi    | Silva      | Database Design Certificate           | Database Design           |
+| CET015         | Ravindu    | Perera     | Data Modeling Certificate             | Data Modeling             |
+| CET016         | Ishara     | Fernando   | Network Configuration Certificate     | Network Configuration     |
+| CET017         | Gayan      | Wijesinghe | TCP/IP Networking Certificate         | TCP/IP Networking         |
+| CET018         | Lakshan    | Bandara    | Network Security Certificate          | Network Security          |
+| CET019         | Anuki      | Herath     | Ethical Hacking Certificate           | Ethical Hacking           |
+| CET020         | Mihiri     | Silva      | Security Risk Assessment Certificate  | Security Risk Assessment  |
++----------------+------------+------------+---------------------------------------+---------------------------+
+20 rows in set (0.00 sec)
+
+//DISPLAY STUDENT ENROLLMENTS WITH COURSE NAMES RIGHT JOIN
+SELECT e.Enrollment_ID, s.First_Name, s.Last_Name, e.Status, c.Course_Name
+FROM Enrollment e
+RIGHT JOIN Student s ON e.Student_ID = s.Student_ID
+RIGHT JOIN Course c ON e.Course_ID = c.Course_ID;
+
+mysql> SELECT e.Enrollment_ID, s.First_Name, s.Last_Name, e.Status, c.Course_Name
+    -> FROM Enrollment e
+    -> RIGHT JOIN Student s ON e.Student_ID = s.Student_ID
+    -> RIGHT JOIN Course c ON e.Course_ID = c.Course_ID;
++---------------+------------+------------+-----------+--------------------------+
+| Enrollment_ID | First_Name | Last_Name  | Status    | Course_Name              |
++---------------+------------+------------+-----------+--------------------------+
+| E001          | Amal       | Perera     | Enrolled  | Database Fundamentals    |
+| E002          | Nimal      | Silva      | Completed | Web Development          |
+| E003          | Kamal      | Fernando   | Dropped   | Programming Basics       |
+| E004          | Tharushi   | Jayasinghe | Pending   | Software Design          |
+| E005          | Kasun      | Bandara    | Completed | Business Communication   |
+| E006          | Nethmi     | Wijesinghe | Dropped   | Financial Accounting     |
+| E007          | Dinuka     | Herath     | Enrolled  | Digital Marketing        |
+| E008          | Sachini    | Perera     | Completed | Network Administration   |
+| E009          | Isuru      | Silva      | Pending   | Cyber Security Basics    |
+| E010          | Pavithra   | Fernando   | Pending   | Data Analytics           |
+| E011          | Malith     | Jayasinghe | Completed | Python Programming       |
+| E012          | Sanduni    | Bandara    | Dropped   | Java Programming         |
+| E013          | Dilan      | Herath     | Enrolled  | Mobile App Development   |
+| E014          | Chamodi    | Silva      | Completed | Cloud Fundamentals       |
+| E015          | Ravindu    | Perera     | Dropped   | Machine Learning         |
+| E016          | Ishara     | Fernando   | Pending   | Statistics for Computing |
+| E017          | Gayan      | Wijesinghe | Enrolled  | Project Management       |
+| E018          | Lakshan    | Bandara    | Completed | UI UX Design             |
+| E019          | Anuki      | Herath     | Dropped   | Graphic Design Basics    |
+| E020          | Mihiri     | Silva      | Pending   | Computer Architecture    |
++---------------+------------+------------+-----------+--------------------------+
+20 rows in set (0.00 sec)
+
+//DISPLAY STUDENT SKILLS WITH LEVEL NAMES FULL OUTER JOIN
+SELECT ss.Student_Skill_ID, s.First_Name, s.Last_Name, sk.Skill_Name, sl.Level_Name
+FROM Student_Skill ss
+FULL OUTER JOIN Student s ON ss.Student_ID = s.Student_ID
+FULL OUTER JOIN Skill sk ON ss.Skill_ID = sk.Skill_ID
+FULL OUTER JOIN Skill_Level sl ON ss.Level_ID = sl.Level_ID;
+
+//DISPLAY STUDENT CERTIFICATES WITH PROGRAM NAMES INNER JOIN
+SELECT c.Certificate_ID, s.First_Name, s.Last_Name, c.Certificate_Name, tp.Program_Name
+FROM Certificate c
+INNER JOIN Student s ON c.Student_ID = s.Student_ID
+INNER JOIN Training_Program tp ON c.Program_ID = tp.Program_ID;
+
+mysql> SELECT c.Certificate_ID, s.First_Name, s.Last_Name, c.Certificate_Name, tp.Program_Name
+    -> FROM Certificate c
+    -> INNER JOIN Student s ON c.Student_ID = s.Student_ID
+    -> INNER JOIN Training_Program tp ON c.Program_ID = tp.Program_ID;
++----------------+------------+------------+---------------------------------------+---------------------------+
+| Certificate_ID | First_Name | Last_Name  | Certificate_Name                      | Program_Name              |
++----------------+------------+------------+---------------------------------------+---------------------------+
+| CET001         | Amal       | Perera     | Python Programming Certificate        | Python Programming        |
+| CET002         | Nimal      | Silva      | Java Programming Certificate          | Java Programming          |
+| CET003         | Kamal      | Fernando   | C Programming Certificate             | C Programming             |
+| CET004         | Tharushi   | Jayasinghe | C++ Development Certificate           | C++ Development           |
+| CET005         | Kasun      | Bandara    | JavaScript Development Certificate    | JavaScript Development    |
+| CET006         | Nethmi     | Wijesinghe | HTML Fundamentals Certificate         | HTML Fundamentals         |
+| CET007         | Dinuka     | Herath     | CSS Web Design Certificate            | CSS Web Design            |
+| CET008         | Sachini    | Perera     | React Development Certificate         | React Development         |
+| CET009         | Isuru      | Silva      | Node.js Development Certificate       | Node.js Development       |
+| CET010         | Pavithra   | Fernando   | PHP Web Development Certificate       | PHP Web Development       |
+| CET011         | Malith     | Jayasinghe | MySQL Database Management Certificate | MySQL Database Management |
+| CET012         | Sanduni    | Bandara    | PostgreSQL Administration Certificate | PostgreSQL Administration |
+| CET013         | Dilan      | Herath     | Advanced SQL Queries Certificate      | Advanced SQL Queries      |
+| CET014         | Chamodi    | Silva      | Database Design Certificate           | Database Design           |
+| CET015         | Ravindu    | Perera     | Data Modeling Certificate             | Data Modeling             |
+| CET016         | Ishara     | Fernando   | Network Configuration Certificate     | Network Configuration     |
+| CET017         | Gayan      | Wijesinghe | TCP/IP Networking Certificate         | TCP/IP Networking         |
+| CET018         | Lakshan    | Bandara    | Network Security Certificate          | Network Security          |
+| CET019         | Anuki      | Herath     | Ethical Hacking Certificate           | Ethical Hacking           |
+| CET020         | Mihiri     | Silva      | Security Risk Assessment Certificate  | Security Risk Assessment  |
++----------------+------------+------------+---------------------------------------+---------------------------+
+20 rows in set (0.00 sec)
+
+//DISPLAY STUDENT ENROLLMENTS WITH COURSE NAMES LEFT JOIN AND RIGHT JOIN
+SELECT e.Enrollment_ID, s.First_Name, s.Last_Name, e.Status, c.Course_Name
+FROM Enrollment e
+LEFT JOIN Student s ON e.Student_ID = s.Student_ID
+RIGHT JOIN Course c ON e.Course_ID = c.Course_ID;
+
+mysql> SELECT e.Enrollment_ID, s.First_Name, s.Last_Name, e.Status, c.Course_Name
+    -> FROM Enrollment e
+    -> LEFT JOIN Student s ON e.Student_ID = s.Student_ID
+    -> RIGHT JOIN Course c ON e.Course_ID = c.Course_ID;
++---------------+------------+------------+-----------+--------------------------+
+| Enrollment_ID | First_Name | Last_Name  | Status    | Course_Name              |
++---------------+------------+------------+-----------+--------------------------+
+| E001          | Amal       | Perera     | Enrolled  | Database Fundamentals    |
+| E002          | Nimal      | Silva      | Completed | Web Development          |
+| E003          | Kamal      | Fernando   | Dropped   | Programming Basics       |
+| E004          | Tharushi   | Jayasinghe | Pending   | Software Design          |
+| E005          | Kasun      | Bandara    | Completed | Business Communication   |
+| E006          | Nethmi     | Wijesinghe | Dropped   | Financial Accounting     |
+| E007          | Dinuka     | Herath     | Enrolled  | Digital Marketing        |
+| E008          | Sachini    | Perera     | Completed | Network Administration   |
+| E009          | Isuru      | Silva      | Pending   | Cyber Security Basics    |
+| E010          | Pavithra   | Fernando   | Pending   | Data Analytics           |
+| E011          | Malith     | Jayasinghe | Completed | Python Programming       |
+| E012          | Sanduni    | Bandara    | Dropped   | Java Programming         |
+| E013          | Dilan      | Herath     | Enrolled  | Mobile App Development   |
+| E014          | Chamodi    | Silva      | Completed | Cloud Fundamentals       |
+| E015          | Ravindu    | Perera     | Dropped   | Machine Learning         |
+| E016          | Ishara     | Fernando   | Pending   | Statistics for Computing |
+| E017          | Gayan      | Wijesinghe | Enrolled  | Project Management       |
+| E018          | Lakshan    | Bandara    | Completed | UI UX Design             |
+| E019          | Anuki      | Herath     | Dropped   | Graphic Design Basics    |
+| E020          | Mihiri     | Silva      | Pending   | Computer Architecture    |
++---------------+------------+------------+-----------+--------------------------+
+20 rows in set (0.00 sec)
+
+
+------------------------FUNCTION AND AGGREGATE FUNCTION-----------------------------------------------------------
+
+//FIND TOTAL NUMBER OF STUDENTS
+SELECT COUNT(*) AS Total_Students FROM Student;
+
+mysql> SELECT COUNT(*) AS Total_Students FROM Student;
++----------------+
+| Total_Students |
++----------------+
+|             20 |
++----------------+
+1 row in set (0.00 sec)
+
+
+//FIND TOTAL SUM OF PROGRAM COSTS
+SELECT SUM(Cost) AS Total_Program_Cost FROM Training_Program;
+
+mysql> SELECT SUM(Cost) AS Total_Program_Cost FROM Training_Program;
++--------------------+
+| Total_Program_Cost |
++--------------------+
+|          900000.00 |
++--------------------+
+1 row in set (0.00 sec)
+
+//FIND AVERAGE PROGRAM COST
+SELECT AVG(Cost) AS Average_Program_Cost FROM Training_Program;
+
+mysql> SELECT AVG(Cost) AS Average_Program_Cost FROM Training_Program;
++----------------------+
+| Average_Program_Cost |
++----------------------+
+|         45000.000000 |
++----------------------+
+1 row in set (0.00 sec)
+
+//FIND MAXIMUM PROGRAM COST
+SELECT MAX(Cost) AS Maximum_Program_Cost FROM Training_Program; 
+
+mysql> SELECT MAX(Cost) AS Maximum_Program_Cost FROM Training_Program;
++----------------------+
+| Maximum_Program_Cost |
++----------------------+
+|             55000.00 |
++----------------------+
+1 row in set (0.00 sec)
+
+//FIND MINIMUM PROGRAM COST
+SELECT MIN(Cost) AS Minimum_Program_Cost FROM Training_Program;
+
+mysql> SELECT MIN(Cost) AS Minimum_Program_Cost FROM Training_Program;
++----------------------+
+| Minimum_Program_Cost |
++----------------------+
+|             35000.00 |
++----------------------+
+1 row in set (0.00 sec)
 
