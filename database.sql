@@ -495,7 +495,7 @@ mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Category_ID = 'SC001';
 +--------------------+----------+
 3 rows in set (0.00 sec)
 
-
+-----------------------------OPERATOR---------------------------------------------------------------
 //FIND PROGRAMMES WITH COST GREATER THAN 45000
 SELECT Program_Name, Cost FROM Training_Program WHERE Cost > 45000;
 
@@ -588,3 +588,124 @@ mysql> SELECT Program_Name, Cost FROM Training_Program WHERE Cost != 45000;
 | Security Risk Assessment  | 50000.00 |
 +---------------------------+----------+
 18 rows in set (0.00 sec)
+
+//FIND SKILL STARTING WITH 'D'
+SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name LIKE 'D%';
+
+mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name LIKE 'D%';
++---------------------------------+----------+
+| Skill_Name                      | Skill_ID |
++---------------------------------+----------+
+| Data Analysis with Python       | SK014    |
+| Deep Learning Techniques        | SK016    |
+| Data Visualization with Tableau | SK017    |
++---------------------------------+----------+
+3 rows in set (0.00 sec)
+
+//FIND SKILL ENDING WITH 'G'
+SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name LIKE '%g';
+
+mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name LIKE '%g';
++--------------------+----------+
+| Skill_Name         | Skill_ID |
++--------------------+----------+
+| Python Programming | SK001    |
+| Java Programming   | SK002    |
+| C++ Programming    | SK003    |
++--------------------+----------+
+3 rows in set (0.00 sec)
+
+//FND SKILL WITH EXACTLY SIX CHARACTERS
+SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name LIKE '______';
+
+mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Skill_Name LIKE '______';
+Empty set (0.00 sec)
+
+//FIND Student WITH EXACTLY five CHARACTERS
+SELECT First_Name, Student_ID FROM Student WHERE First_Name LIKE '_____';
+
+mysql> SELECT First_Name, Student_ID FROM Student WHERE First_Name LIKE '_____';
++------------+------------+
+| First_Name | Student_ID |
++------------+------------+
+| Nimal      | S002       |
+| Kamal      | S003       |
+| Kasun      | S005       |
+| Isuru      | S009       |
+| Dilan      | S013       |
+| Gayan      | S017       |
+| Anuki      | S019       |
++------------+------------+
+7 rows in set (0.00 sec)
+
+//FIND CATEGORY CONTAINING 'Design'
+SELECT Category_Name, Category_ID FROM Skill_Category WHERE Category_Name LIKE '%Design%';
+
+mysql> SELECT Category_Name, Category_ID FROM Skill_Category WHERE Category_Name LIKE '%Design%';
++----------------+-------------+
+| Category_Name  | Category_ID |
++----------------+-------------+
+| UI Design      | SC013       |
+| UX Design      | SC014       |
+| Graphic Design | SC015       |
++----------------+-------------+
+3 rows in set (0.00 sec)
+
+//salary between 50000 and 60000
+SELECT Program_Name, Cost , Program_ID FROM Training_Program WHERE Cost BETWEEN 50000 AND 60000;
+
+//salary not between 50000 and 60000
+SELECT Program_Name, Cost , Program_ID FROM Training_Program WHERE Cost NOT BETWEEN 50000 AND 60000;
+
+//exclude specific program names
+SELECT Program_Name, Cost , Program_ID FROM Training_Program WHERE Program_Name NOT IN ('Python Programming', 'Java Programming', 'C++ Development');
+
+//FIND THE SKILL WITHOUT A CATEGORY
+SELECT Skill_Name, Skill_ID FROM Skill WHERE Category_ID IS NOT NULL;
+
+mysql> SELECT Skill_Name, Skill_ID FROM Skill WHERE Category_ID IS NOT NULL;
++-------------------------------------+----------+
+| Skill_Name                          | Skill_ID |
++-------------------------------------+----------+
+| Python Programming                  | SK001    |
+| Java Programming                    | SK002    |
+| C++ Programming                     | SK003    |
+| HTML & CSS                          | SK004    |
+| JavaScript                          | SK005    |
+| SQL Database Management             | SK006    |
+| Network Configuration               | SK007    |
+| Cybersecurity Fundamentals          | SK008    |
+| Software Development Lifecycle      | SK009    |
+| Mobile App Development (Android)    | SK010    |
+| Mobile App Development (iOS)        | SK011    |
+| AWS Cloud Services                  | SK012    |
+| Azure Cloud Services                | SK013    |
+| Data Analysis with Python           | SK014    |
+| Machine Learning Algorithms         | SK015    |
+| Deep Learning Techniques            | SK016    |
+| Data Visualization with Tableau     | SK017    |
+| UI Design Principles                | SK018    |
+| UX Research Methods                 | SK019    |
+| Graphic Design with Adobe Photoshop | SK020    |
++-------------------------------------+----------+
+20 rows in set (0.04 sec)
+
+------------------------AND , OR -----------------------------------------------------------
+
+//COST GREATER THAN 45000 AND LESS THAN 50000
+SELECT Program_Name, Cost , Program_ID FROM Training_Program WHERE Cost > 45000 AND Cost < 50000;
+
+//FIND PYTHAON PROGRAMMING SKILL OR JAVA PROGRAMMING SKILL
+SELECT Skill_Name, Skill_ID 
+FROM Skill 
+WHERE Skill_Name = 'Python Programming' OR Skill_Name = 'Java Programming';
+
+//COMBINED THE AND , OR OPERATORS WITH PARENTHESES
+SELECT Skill_Name, Skill_ID 
+FROM Skill  
+WHERE (Skill_Name = 'Python Programming' OR Skill_Name = 'Java Programming') AND Category_ID = 'SC001'; 
+
+//FIND THA NOT  COMPLETED ENROLLMENTS
+SELECT Enrollment_ID, Status, Student_ID, Course_ID
+FROM Enrollment WHERE Status != 'Completed';
+
